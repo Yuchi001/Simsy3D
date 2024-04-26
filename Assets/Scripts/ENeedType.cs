@@ -2,10 +2,10 @@
 {
     public enum ENeedType
     {
-        Incantations,
+        ManaRegeneration,
         Stargazing,
         Calligraphy,
-        ManaRegeneration,
+        Incantations,
     }
     
     /*
