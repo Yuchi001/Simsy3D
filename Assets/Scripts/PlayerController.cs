@@ -6,20 +6,23 @@ using SideClasses;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float decreaseSpeed = 5;
+    [SerializeField] private Animator animator;
     
     private readonly List<NeedTracker> _needTrackers = new();
 
     private NeedTracker _objective;
 
+    private bool _isDead = false;
     private bool _canChangeTarget = false;
     private bool _isCloseToObjective = false;
     private float _timer = 0f;
 
     private NavMeshAgent _agent;
-    
+
     public void Setup(List<NeedObject> needTuples)
     {
         foreach (var needObject in needTuples)
@@ -38,25 +41,35 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _isCloseToObjective =
-            Vector3.Distance(transform.position, _objective.needObject.target.transform.position) <= 2;
-
-        ManageStats();
+        if (_isDead) return;
         
-        if (_isCloseToObjective)
-        {
-            var objectiveTracker =
-                _needTrackers.FirstOrDefault(n => n.needObject.needType == _objective.needObject.needType);
+        var objectiveTracker =
+            _needTrackers.FirstOrDefault(n => n.needObject.needType == _objective.needObject.needType);
+        if (objectiveTracker == default) return;
+        
+        var objectivePos = objectiveTracker.needObject.target.transform.position;
+        _agent.isStopped = Vector3.Distance(transform.position, objectivePos) <= 2;
+        _agent.destination = objectivePos;
+        
+        animator.SetBool("Walking", !_agent.isStopped);
+        
+        ManageStats();
 
-            if (objectiveTracker == default) return;
-            objectiveTracker.value += decreaseSpeed * 4 * Time.deltaTime;
+        if (!_agent.isStopped) return;
+        
+        
+        objectiveTracker.value += decreaseSpeed * 4 * Time.deltaTime;
+        
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(objectiveTracker.needObject.animationName)) 
+            animator.SetTrigger(objectiveTracker.needObject.animationName);
+        
+        _canChangeTarget = objectiveTracker.value >= objectiveTracker.needObject.maxValue;
 
-            _canChangeTarget = objectiveTracker.value >= objectiveTracker.needObject.maxValue;
-            
-            return;
-        }
-
-        _agent.destination = _objective.needObject.target.transform.position;
+        var targetTransform = objectiveTracker.needObject.posAndRot;
+        if (targetTransform == null) return;
+        
+        transform.position = targetTransform.position;
+        transform.rotation = targetTransform.rotation;
     }
 
     private void ManageStats()
@@ -68,6 +81,12 @@ public class PlayerController : MonoBehaviour
             var isTargetObjective = _objective.needObject.needType == tracker.needObject.needType && _isCloseToObjective;
             tracker.value -= isTargetObjective ? 0 : decreaseSpeed * Time.deltaTime;
 
+            if (tracker.value <= 0)
+            {
+                Die();
+                return;
+            }
+
             if (tracker.value / tracker.needObject.maxValue < smallestValue.value / smallestValue.needObject.maxValue) smallestValue = tracker;
         }
 
@@ -77,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
         _canChangeTarget = false;
         _objective = smallestValue;
+        
         _timer = 0;
     }
 
@@ -87,6 +107,17 @@ public class PlayerController : MonoBehaviour
 
         Debug.LogError("Need not found!");
         return -1;
+    }
+
+    private void Die()
+    {
+        _agent.velocity = Vector3.zero;
+        _agent.isStopped = true;
+        
+        animator.SetBool("Dead", _isDead = true);
+        animator.SetTrigger("Die");
+        
+        GameManager.Instance.OnPlayerDeath();
     }
 
     private class NeedTracker
