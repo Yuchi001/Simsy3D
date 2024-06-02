@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         {
             needDisplay.Setup(playerScript);
         }
+        
+        AudioManager.Instance.SetTheme(EThemeType.Ambient1);
     }
 
     public void OnPlayerDeath()

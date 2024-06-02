@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -31,6 +32,7 @@ namespace UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            AudioManager.Instance.PlaySoundOneShoot(ESoundType.ButtonClick);
             transform.LeanScale(Vector3.one, animTime).setEaseOutBack().setOnComplete(() => onClickEvent?.Invoke());
         }
     }

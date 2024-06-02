@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private NavMeshAgent _agent;
 
+    private AudioManager _audioManager => AudioManager.Instance;
+
     public void Setup(List<NeedObject> needTuples)
     {
         foreach (var needObject in needTuples)
@@ -57,11 +59,14 @@ public class PlayerController : MonoBehaviour
 
         if (!_agent.isStopped) return;
         
-        
         objectiveTracker.value += decreaseSpeed * 4 * Time.deltaTime;
-        
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(objectiveTracker.needObject.animationName)) 
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(objectiveTracker.needObject.animationName))
+        {
+            var soundType = objectiveTracker.needObject.activitySoundType;
+            if(!_audioManager.IsPlaying(soundType)) _audioManager.PlaySound(soundType,  true);
             animator.SetTrigger(objectiveTracker.needObject.animationName);
+        }
         
         _canChangeTarget = objectiveTracker.value >= objectiveTracker.needObject.maxValue;
 
@@ -94,6 +99,8 @@ public class PlayerController : MonoBehaviour
              !(smallestValue.value / smallestValue.needObject.maxValue <= 0.5f))
             || _timer < 2f) return;
 
+        _audioManager.StopPlayingSound(_objective.needObject.activitySoundType);
+        
         _canChangeTarget = false;
         _objective = smallestValue;
         

@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace;
+using Enums;
 using UnityEngine;
 
 namespace SideClasses
@@ -8,8 +9,10 @@ namespace SideClasses
     {
         public string animationName;
         public ENeedType needType;
+        public ESoundType activitySoundType;
         public GameObject target;
         public Transform posAndRot;
         public float maxValue;
+        [Range(0f, 1f)] public float triggerPercentage;
     }
 }
