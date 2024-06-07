@@ -6,14 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="4af7548b-79a0-483d-905b-eac630882c24" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Simsy3D/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Simsy3D/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/PlayerHuman.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/PlayerHuman.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/AudioManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/ESoundType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/ESoundType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Button.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Button.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/buttonClick.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/buttonClick.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/buttonHover.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/buttonHover.wav.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +107,7 @@
       <workItem from="1717341506821" duration="6807000" />
       <workItem from="1717696996667" duration="4576000" />
       <workItem from="1717719415536" duration="1300000" />
+      <workItem from="1717745350655" duration="1502000" />
     </task>
     <servers />
   </component>

@@ -67,7 +67,6 @@ public class AudioManager : MonoBehaviour
 
     public void StopPlayingSound(ESoundType soundType)
     {
-        Debug.Log("Stop");
         var exists = _activeSounds.ContainsKey(soundType);
         if (!exists) return;
 
@@ -105,6 +104,8 @@ public class AudioManager : MonoBehaviour
     
     private void Update()
     {
+        return;
+        
         if (_activeSounds.Count <= 0) return;
 
         _timer += Time.deltaTime;

@@ -2072,28 +2072,28 @@ MonoBehaviour:
     activitySoundType: 0
     target: {fileID: 1263431694}
     posAndRot: {fileID: 0}
-    maxValue: 100
+    maxValue: 150
     triggerPercentage: 0.1
   - animationName: Telescope
     needType: 1
     activitySoundType: 2
     target: {fileID: 437756476}
     posAndRot: {fileID: 256272799}
-    maxValue: 20
+    maxValue: 100
     triggerPercentage: 0.3
   - animationName: Writing
     needType: 2
     activitySoundType: 1
     target: {fileID: 128847169}
     posAndRot: {fileID: 2019189508}
-    maxValue: 70
+    maxValue: 130
     triggerPercentage: 0.1
   - animationName: Dance
     needType: 3
     activitySoundType: 3
     target: {fileID: 1124394060}
     posAndRot: {fileID: 0}
-    maxValue: 20
+    maxValue: 70
     triggerPercentage: 0.4
   needDisplays:
   - {fileID: 2422268436296947308}

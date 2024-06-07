@@ -2512,7 +2512,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168583461593462cbf213089b5db898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fillNeedPercentageGap: 0.6
   decreaseSpeed: 1
+  increaseSpeed: 10
   animator: {fileID: 1244750234569482406}
 --- !u!195 &3091113672024621974
 NavMeshAgent:

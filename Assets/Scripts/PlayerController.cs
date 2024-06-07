@@ -94,7 +94,10 @@ public class PlayerController : MonoBehaviour
             var isTargetObjective = !IsIdle && _objective.needObject.needType == tracker.needObject.needType;
             tracker.value -= isTargetObjective ? 0 : decreaseSpeed * Time.deltaTime;
             
-            if (tracker.IsCritical()) _needQueue.Push(tracker);
+            if (tracker.IsCritical() && 
+                !IsPresentInStack(tracker) && 
+                !IsMainObjective(tracker)) 
+                _needQueue.Push(tracker);
             
             if (tracker.value <= 0) Die();
         }
@@ -135,6 +138,16 @@ public class PlayerController : MonoBehaviour
 
         Debug.LogError("Need not found!");
         return -1;
+    }
+
+    private bool IsPresentInStack(NeedTracker tracker)
+    {
+        return _needQueue.FirstOrDefault(n => n.needObject.needType == tracker.needObject.needType) != default;
+    }
+
+    private bool IsMainObjective(NeedTracker tracker)
+    {
+        return _objective != null && _objective.needObject.needType == tracker.needObject.needType;
     }
 
     private void Die()
