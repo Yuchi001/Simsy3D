@@ -6,8 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="4af7548b-79a0-483d-905b-eac630882c24" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Simsy3D/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Simsy3D/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Dying.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Dying.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/HumanModel.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/HumanModel.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Idle.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Peasant_Girl.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Peasant_Girl.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Peasant_GirlWalking.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Peasant_GirlWalking.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Swimming.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Swimming.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Telescope.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Telescope.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Writing.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Writing.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeathMenuUi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DeathMenuUi.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +108,8 @@
       <workItem from="1717341506821" duration="6807000" />
       <workItem from="1717696996667" duration="4576000" />
       <workItem from="1717719415536" duration="1300000" />
-      <workItem from="1717745350655" duration="3256000" />
+      <workItem from="1717745350655" duration="3470000" />
+      <workItem from="1717761350632" duration="490000" />
     </task>
     <servers />
   </component>

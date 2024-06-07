@@ -3,7 +3,27 @@ guid: 480e228aeec197149af9a4900c0b3e69
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Peasant_Girl
+    second: {fileID: 2100000, guid: dcac3f821169e0b48b5b0949bd0b44c6, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Peasant_Girl_diffuse
+    second: {fileID: 2800000, guid: 9c4763d76193dd44580c29a8f4400755, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Peasant_Girl_normal
+    second: {fileID: 2800000, guid: 6e380a00e915b63428ccf10b00fb5c8f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Peasant_Girl_specular
+    second: {fileID: 2800000, guid: acb0eea46e5399442a32bf9866c76069, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

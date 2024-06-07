@@ -3,7 +3,12 @@ guid: b32d32e1a8c765a4cb1d39d092c176c2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Peasant_Girl
+    second: {fileID: 2100000, guid: dcac3f821169e0b48b5b0949bd0b44c6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
