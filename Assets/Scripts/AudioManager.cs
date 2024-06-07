@@ -61,7 +61,9 @@ public class AudioManager : MonoBehaviour
 
         var exists = _activeSounds.ContainsKey(soundType);
         
+        // Jezeli klucz istnieje w slowniku to dodajemy do listy jego dzwiekow nowo zrobiony dzwiek
         if (exists) _activeSounds[soundType].Add(audioSourceScript);
+        // Jezeli nie to tworzymy nowa pare i wpisujemy od razu do listy dziwkow nowo pojawiony dzwiek
         else _activeSounds.Add(soundType, new List<AudioSource> { audioSourceScript });
     }
 
@@ -72,6 +74,7 @@ public class AudioManager : MonoBehaviour
 
         var soundsToDestroy = _activeSounds[soundType];
         _activeSounds.Remove(soundType);
+        // Dla kazdego dzwieku przypisanego do klucza uzywamy funkcji co wyciszy i usunie dzwiek
         foreach (var sound in soundsToDestroy)
             StartCoroutine(sound.FadeOutAndDestroy(soundFadeOutTime));
     }
@@ -79,6 +82,7 @@ public class AudioManager : MonoBehaviour
     public void SetTheme(EThemeType themeType)
     {
         var audioSource = _mainAudio;
+        // Jezeli jeszcze theme nie byl ustawiony to tworzymy nowy theme i wpisujemy go do _mainAudio
         if (audioSource == null)
         {
             var audioSourceObj = new GameObject($"Audio: {themeType}", typeof(AudioSource));
@@ -88,7 +92,8 @@ public class AudioManager : MonoBehaviour
             
         var clip = themes.FirstOrDefault(s => s.ThemeType == themeType)?.AudioClip;
         if (clip == null) return;
-
+        
+        // Jezeli theme byl juz ustawiony to po prostu zmieniamy jego zawartosc
         audioSource.clip = clip;
         audioSource.volume = 0.3f;
         audioSource.loop = true;
@@ -97,29 +102,11 @@ public class AudioManager : MonoBehaviour
 
     public bool IsPlaying(ESoundType soundType)
     {
+        // Jezeli klucza "soundType" nie ma w slowniku no to na pewno nie gramy teraz tego dzwieku
         if (!_activeSounds.ContainsKey(soundType)) return false;
 
+        // Jesli klucz jest no to sprawdzamyn czy jakikolwiek komponent "AudioSource" gra jeszcze jakas muzyke
         return _activeSounds[soundType].FirstOrDefault(sound => sound.isPlaying) != default;
-    }
-    
-    private void Update()
-    {
-        return;
-        
-        if (_activeSounds.Count <= 0) return;
-
-        _timer += Time.deltaTime;
-        if (_timer < 1f / emptySoundDetectionRate) return;
-
-        _timer = 0;
-        foreach (var soundPair in _activeSounds)
-        {
-            foreach (var sound in soundPair.Value)
-            {
-                if (sound.isPlaying) continue;
-                Destroy(sound.gameObject);
-            }
-        }
     }
 }
 
