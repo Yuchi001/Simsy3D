@@ -2080,21 +2080,21 @@ MonoBehaviour:
     target: {fileID: 437756476}
     posAndRot: {fileID: 256272799}
     maxValue: 20
-    triggerPercentage: 0.7
+    triggerPercentage: 0.3
   - animationName: Writing
     needType: 2
     activitySoundType: 1
     target: {fileID: 128847169}
     posAndRot: {fileID: 2019189508}
     maxValue: 70
-    triggerPercentage: 0.3
+    triggerPercentage: 0.1
   - animationName: Dance
     needType: 3
     activitySoundType: 3
     target: {fileID: 1124394060}
     posAndRot: {fileID: 0}
     maxValue: 20
-    triggerPercentage: 0.8
+    triggerPercentage: 0.4
   needDisplays:
   - {fileID: 2422268436296947308}
   - {fileID: 1876684231}

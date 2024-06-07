@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
 
         var audioSource = new GameObject($"Audio: {soundType}", typeof(AudioSource));
         var audioSourceScript = audioSource.GetComponent<AudioSource>();
-        audioSourceScript.volume = 0.3f;
+        audioSourceScript.volume = 0.15f;
         audioSourceScript.loop = false;
         audioSourceScript.pitch -= Random.Range(-0.1f, 0.1f);
         audioSourceScript.PlayOneShot(clip);
@@ -67,13 +67,14 @@ public class AudioManager : MonoBehaviour
 
     public void StopPlayingSound(ESoundType soundType)
     {
+        Debug.Log("Stop");
         var exists = _activeSounds.ContainsKey(soundType);
         if (!exists) return;
 
-        foreach (var sound in _activeSounds[soundType])
-            StartCoroutine(sound.FadeOutAndDestroy(soundFadeOutTime));
-
+        var soundsToDestroy = _activeSounds[soundType];
         _activeSounds.Remove(soundType);
+        foreach (var sound in soundsToDestroy)
+            StartCoroutine(sound.FadeOutAndDestroy(soundFadeOutTime));
     }
 
     public void SetTheme(EThemeType themeType)

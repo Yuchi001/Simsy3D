@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5579343ae5349a7982213dc627e00ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundFadeOutTime: 0.15
   emptySoundDetectionRate: 1
   sounds:
   - AudioClip: {fileID: 8300000, guid: 731877294b8a77947ad8b1203244be00, type: 3}
@@ -56,6 +57,8 @@ MonoBehaviour:
     SoundType: 3
   - AudioClip: {fileID: 8300000, guid: a9ac1614d96145c49a2d1c1108fc7cb9, type: 3}
     SoundType: 4
+  - AudioClip: {fileID: 8300000, guid: 16e23f40b9e95b846bce39e90b70f59c, type: 3}
+    SoundType: 5
   themes:
   - AudioClip: {fileID: 8300000, guid: fbf72f5e82b067e40b68bde163768eab, type: 3}
     ThemeType: 0

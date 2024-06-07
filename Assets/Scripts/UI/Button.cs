@@ -20,6 +20,8 @@ namespace UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            AudioManager.Instance.PlaySoundOneShoot(ESoundType.ButtonHover);
+            
             var finishScale = new Vector3(maxScale, maxScale, 1);
             transform.LeanScale(finishScale, animTime).setEaseOutBack();
             onHoverEvent?.Invoke();

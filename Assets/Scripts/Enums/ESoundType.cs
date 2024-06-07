@@ -7,5 +7,6 @@
         Stargazing,
         MagicCircleLongRinging,
         ButtonClick,
+        ButtonHover,
     }
 }

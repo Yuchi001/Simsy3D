@@ -9,7 +9,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float fillNeedPercentageGap = 0.6f;
     [SerializeField] private float decreaseSpeed = 5;
+    [SerializeField] private float increaseSpeed = 20;
     [SerializeField] private Animator animator;
     
     private readonly List<NeedTracker> _needTrackers = new();
@@ -17,13 +19,14 @@ public class PlayerController : MonoBehaviour
     private NeedTracker _objective;
 
     private bool _isDead = false;
-    private bool _canChangeTarget = false;
-    private bool _isCloseToObjective = false;
-    private float _timer = 0f;
 
     private NavMeshAgent _agent;
 
-    private AudioManager _audioManager => AudioManager.Instance;
+    private Stack<NeedTracker> _needQueue = new();
+
+    private bool IsIdle => animator.GetBool("Idle");
+
+    private static AudioManager AudioManager => AudioManager.Instance;
 
     public void Setup(List<NeedObject> needTuples)
     {
@@ -36,14 +39,24 @@ public class PlayerController : MonoBehaviour
             });
         }
 
-        _objective = _needTrackers[0];
+        _objective = null;
 
         _agent = GetComponent<NavMeshAgent>();
+        
+        animator.SetBool("Idle", true);
+        animator.SetTrigger("GoIdle");
     }
 
     private void Update()
     {
         if (_isDead) return;
+
+        ManageStats();
+        if (IsIdle || _objective == null)
+        {
+            _agent.isStopped = true;
+            return;
+        }
         
         var objectiveTracker =
             _needTrackers.FirstOrDefault(n => n.needObject.needType == _objective.needObject.needType);
@@ -54,22 +67,19 @@ public class PlayerController : MonoBehaviour
         _agent.destination = objectivePos;
         
         animator.SetBool("Walking", !_agent.isStopped);
-        
-        ManageStats();
 
-        if (!_agent.isStopped) return;
-        
-        objectiveTracker.value += decreaseSpeed * 4 * Time.deltaTime;
+        if (!_agent.isStopped && !IsIdle) return;
+
+        objectiveTracker.value += increaseSpeed * Time.deltaTime;
+        objectiveTracker.value = Mathf.Clamp(objectiveTracker.value, 0, objectiveTracker.needObject.maxValue);
 
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(objectiveTracker.needObject.animationName))
         {
             var soundType = objectiveTracker.needObject.activitySoundType;
-            if(!_audioManager.IsPlaying(soundType)) _audioManager.PlaySound(soundType,  true);
+            if(!AudioManager.IsPlaying(soundType)) AudioManager.PlaySound(soundType,  true);
             animator.SetTrigger(objectiveTracker.needObject.animationName);
         }
         
-        _canChangeTarget = objectiveTracker.value >= objectiveTracker.needObject.maxValue;
-
         var targetTransform = objectiveTracker.needObject.posAndRot;
         if (targetTransform == null) return;
         
@@ -79,32 +89,43 @@ public class PlayerController : MonoBehaviour
 
     private void ManageStats()
     {
-        _timer += Time.deltaTime;
-        var smallestValue = _objective;
         foreach (var tracker in _needTrackers)
         {
-            var isTargetObjective = _objective.needObject.needType == tracker.needObject.needType && _isCloseToObjective;
+            var isTargetObjective = !IsIdle && _objective.needObject.needType == tracker.needObject.needType;
             tracker.value -= isTargetObjective ? 0 : decreaseSpeed * Time.deltaTime;
-
-            if (tracker.value <= 0)
-            {
-                Die();
-                return;
-            }
-
-            if (tracker.value / tracker.needObject.maxValue < smallestValue.value / smallestValue.needObject.maxValue) smallestValue = tracker;
+            
+            if (tracker.IsCritical()) _needQueue.Push(tracker);
+            
+            if (tracker.value <= 0) Die();
         }
 
-        if ((!_canChangeTarget &&
-             !(smallestValue.value / smallestValue.needObject.maxValue <= 0.5f))
-            || _timer < 2f) return;
+        if (IsIdle)
+        {
+            if (_needQueue.Count <= 0) return;
+            
+            if (_objective != null) AudioManager.StopPlayingSound(_objective.needObject.activitySoundType);
+            _objective = _needQueue.Pop();
+            animator.SetBool("Idle", false);
+            return;
+        }
 
-        _audioManager.StopPlayingSound(_objective.needObject.activitySoundType);
-        
-        _canChangeTarget = false;
-        _objective = smallestValue;
-        
-        _timer = 0;
+        var currentPercentage = _objective.GetCurrentPercentage();
+        if (currentPercentage <= fillNeedPercentageGap) return;
+
+        if (_needQueue.Count > 0)
+        {
+            if (_objective != null) AudioManager.StopPlayingSound(_objective.needObject.activitySoundType);
+            _objective = _needQueue.Pop();
+            animator.SetBool("Idle", false);
+            return;
+        }
+
+        if (currentPercentage < 0.95f) return;
+
+        if (_objective != null) AudioManager.StopPlayingSound(_objective.needObject.activitySoundType);
+        if(!animator.GetBool("Idle")) animator.SetTrigger("GoIdle");
+        animator.SetBool("Idle", true);
+        _objective = null;
     }
 
     public float GetNeedValue(ENeedType needType)
@@ -131,5 +152,15 @@ public class PlayerController : MonoBehaviour
     {
         public float value;
         public NeedObject needObject;
+
+        public float GetCurrentPercentage()
+        {
+            return value / needObject.maxValue;
+        }
+
+        public bool IsCritical()
+        {
+            return GetCurrentPercentage() < needObject.triggerPercentage;
+        }
     }
 }
