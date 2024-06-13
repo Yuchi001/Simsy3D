@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using SideClasses;
@@ -22,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private NavMeshAgent _agent;
 
-    private Stack<NeedTracker> _needQueue = new();
+    private readonly Stack<NeedTracker> _needQueue = new();
 
     private bool IsIdle => animator.GetBool("Idle");
 
@@ -52,6 +51,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (_isDead) return;
+
+        if (Input.GetKeyDown(KeyCode.X)) Die();
 
         ManageStats();
         
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jezeli aktualny need nie jest zrobiony prawie do maxa do rob go dalej
-        if (currentPercentage < 0.95f) return;
+        if (currentPercentage < 1f) return;
 
         // Tutaj ostatecznie ustawiamy "Idle" postaci bo nie ma co robic
         if (_objective != null) AudioManager.StopPlayingSound(_objective.needObject.activitySoundType);
@@ -172,6 +173,8 @@ public class PlayerController : MonoBehaviour
         
         animator.SetBool("Dead", _isDead = true);
         animator.SetTrigger("Die");
+
+        if (_objective != null) AudioManager.Instance.StopPlayingSound(_objective.needObject.activitySoundType);
         
         GameManager.Instance.OnPlayerDeath();
     }

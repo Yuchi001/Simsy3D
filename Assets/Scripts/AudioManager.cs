@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Enums;
 using UnityEngine;
@@ -43,7 +42,7 @@ public class AudioManager : MonoBehaviour
         audioSourceScript.pitch -= Random.Range(-0.1f, 0.1f);
         audioSourceScript.PlayOneShot(clip);
             
-        Destroy(audioSource, 0.5f);
+        Destroy(audioSource, clip.length + 0.1f);
     }
     
     public void PlaySound(ESoundType soundType, bool loop)

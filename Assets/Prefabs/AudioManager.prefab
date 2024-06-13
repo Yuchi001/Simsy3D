@@ -59,6 +59,8 @@ MonoBehaviour:
     SoundType: 4
   - AudioClip: {fileID: 8300000, guid: 9d367a54ea331094da2751a1dd5b95f7, type: 3}
     SoundType: 5
+  - AudioClip: {fileID: 8300000, guid: 6d86b444fce3def4392184eaea96fa47, type: 3}
+    SoundType: 6
   themes:
   - AudioClip: {fileID: 8300000, guid: fbf72f5e82b067e40b68bde163768eab, type: 3}
     ThemeType: 0

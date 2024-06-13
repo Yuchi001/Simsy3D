@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using SideClasses;
@@ -7,6 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField, Range(0.1f, 2f)] private float needMaxValueScale = 1f;
+
+    [SerializeField] private float deathMenuDelay = 3f;
     [SerializeField] private GameObject deathUI;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform playerSpawnPos;
@@ -25,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         var player = Instantiate(playerPrefab, playerSpawnPos.position, Quaternion.identity);
         var playerScript = player.GetComponent<PlayerController>(); 
+        needObjects.ForEach(n => n.maxValue *= needMaxValueScale);
         playerScript.Setup(needObjects);
 
         foreach (var needDisplay in needDisplays)
@@ -37,6 +42,12 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDeath()
     {
+        StartCoroutine(DelayDeathMenu());
+    }
+
+    private IEnumerator DelayDeathMenu()
+    {
+        yield return new WaitForSeconds(deathMenuDelay);
         deathUI.SetActive(true);
     }
 

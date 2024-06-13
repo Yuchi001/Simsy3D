@@ -8,5 +8,6 @@
         MagicCircleLongRinging,
         ButtonClick,
         ButtonHover,
+        Bat,
     }
 }
